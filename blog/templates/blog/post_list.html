@@ -1,63 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>My Personal Blog</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-            }
 
-            header {
-                background-color: #f8f9fa;
-                padding: 20px;
-                text-align: center;
-                border-bottom: 1px solid #e9ecef;
-            }
+{% extends 'blog/base.html' %}
 
-            header a {
-                text-decoration: none;
-                color: #212529;
-            }
-
-            article {
-                margin: 20px auto;
-                max-width: 800px;
-                padding: 20px;
-                border-radius: 4px;
-                background-color: #fff;
-                box-shadow: 0 1px 3px rgba(0,0,0,.2);
-            }
-
-            article h2 {
-                margin-top: 0;
-            }
-
-            article h2 a {
-                text-decoration: none;
-                color: #007bff;
-            }
-
-            article time {
-                color: #6c757d;
-                font-size: 0.8em;
-            }
-
-            article p {
-                line-height: 1.5;
-            }
-        </style>
-    </head>
-    <body>
-        <header>
-            <h1><a href="/">My Personal Blog</a></h1>
-        </header>
-
-        {% for post in posts %}
-            <article>
-                <time>published: {{ post.published_date }}</time>
-                <h2><a href="">{{ post.title }}</a></h2>
-                <p>{{ post.text|linebreaksbr }}</p>
-            </article>
-        {% endfor %}
-    </body>
-</html>
+{% block content %}
+    {% for post in posts %}
+        <article class="post">
+            <time class="date">
+                {{ post.published_date }}
+            </time>
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </article>
+    {% endfor %}
+{% endblock %}
